@@ -71,7 +71,7 @@ Only requirements are:
 
 ## Endpoints
 
-You might need more endpoints to implement all the functionality. Following
+**You might need more endpoints to implement all the functionality.** Following
 endpoints are the mandatory ones.
 
 ### GET `/`
@@ -91,29 +91,35 @@ endpoints are the mandatory ones.
 
 - save changes
 
-- redirect to the main page
+- redirect back to the main page
 
 ### POST `/ships`
 
 - this endpoint is responsible for creation of new ship
 
-### GET `/planets`
+### GET `/ships?warpAtLeast=9.5`
 
-- this endpoint should return all the planets in the following format: 
+- this endpoint should return information about space ships whose
+  maximum warp speed is at least as high as provided threshold
+- returned spaceships should be **sorted, going from fastest to
+  slowest**
+- this is what output should look like:
 
 ```
 [
     {
-        "name": "Jupiter",
-        "population": 656565,
-        "spaceShip": null
+        "name": "Voyager",
+        "id": 2,
+        "location": "Earth",
+        "maximumWarp": "9.975",
+        "docked": true
     },
     {
-        "name": "Mars",
-        "population": 431,
-        "spaceShip": {
-            "passengers": 60
-        }
+        "name": "Enterprise",
+        "id": 1,
+        "location": "Titan",
+        "maximumWarp": "9.6",
+        "docked": false
     },
     ...
 ]
