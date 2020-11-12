@@ -11,16 +11,11 @@
 ## Keep in mind
 
 - You can use any resource online, but **please work individually**
-
 - **Don't just copy-paste** your answers and solutions, use your own words
   instead
-
 - **Don't push your work** to GitHub until your mentor announces that the time
   is up
-
 - Before diving to coding **think about the structure**
-
-## Tasks
 
 # Space Transporter
 
@@ -63,6 +58,9 @@ between planets in our newly founded galactic federation.
 It is up to you to define what the database model will look
 like, it just needs to help backed fulfill outlined functionality.
 
+Note that DB might change accurancy of your warp speed when a ship
+is saved. Do not concern yourself with this.
+
 Only requirements are:
 
 * all the ship and planet data needs to be stored in database
@@ -103,9 +101,9 @@ endpoints are the mandatory ones.
   maximum warp speed is at least as high as provided threshold
 - returned spaceships should be **sorted, going from fastest to
   slowest**
-- this is what output should look like:
+- this is what output should look like (follow this format):
 
-```
+```json
 [
     {
         "name": "Voyager",
@@ -120,11 +118,15 @@ endpoints are the mandatory ones.
         "location": "Titan",
         "maximumWarp": "9.6",
         "docked": false
-    },
-    ...
+    }
 ]
 ```
 
-
 # SQL Question
 
+We will be operating on the database model which you have created when
+you were implementing your Space Transporter application.
+
+* Write a SQL query that will select names of all ships located on planet "Titan" (use name
+of the planet in the query, not its primary ID)
+* Write a SQL query that will decrease warp speed of all ships by 2.
