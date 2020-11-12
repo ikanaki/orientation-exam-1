@@ -51,11 +51,11 @@ between planets in our newly founded galactic federation.
   - table of existing ships as depicted above, which allows us
     to undock or dock ships (depending on their current state)
     by clicking a link
-        - we are redirected back to main page after using the link
-        - if we try to dock ship on a planet that has no more available
+     - we are redirected back to main page after using the link
+     - if we try to dock ship on a planet that has no more available
           docking capacity, ship will not be docker and we display
           "Docking capacity on planet XYZ reached!"
-        - XYZ is a placeholder name of the planet where we tried to dock.
+     - XYZ is a placeholder name of the planet where we tried to dock.
 
 
 ![main](assets/maximum_capacity.png)
