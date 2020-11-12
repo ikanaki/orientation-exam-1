@@ -46,7 +46,7 @@ between planets in our newly founded galactic federation.
   - table of existing ships as depicted above, which allows us
     to undock or dock ships (depending on their current state)
     by clicking a link
-        - we are redirected back to main page after using the 
+        - we are redirected back to main page after using the link
   - form that allows us to move ship to a different planet using
     select field
     - only ships that are currently undocked should be displayed
@@ -56,7 +56,7 @@ between planets in our newly founded galactic federation.
 ## Database
 
 It is up to you to define what the database model will look
-like, it just needs to help backed fulfill outlined functionality.
+like, it just needs to help backend fulfill outlined functionality.
 
 Note that DB might change accurancy of your warp speed when a ship
 is saved. Do not concern yourself with this.
