@@ -30,10 +30,13 @@ between planets in our newly founded galactic federation.
 - Every ship has a name and maximum warp speed (floating-point number).
     - At any time, ship is located at one of the planets.
     - Ship can be either docked or undocked. Docked ships cannot travel
-      to another ship until undocked.
+      to another planet until undocked.
 
 - Planets are represented just by their name.
-    - There is no limit to as how many ships can be located at any given planet.
+    - Each planet has its own maximum limit of how many ships it can have
+      docked at any given time (some docking capacity).
+    - If this limit is reached, no more ship can dock until more space
+      becomes available (already docked ship undocking).
     - Assume that planet names are unique.
 
 ## Frontend
@@ -41,17 +44,29 @@ between planets in our newly founded galactic federation.
 ![main](assets/frontpage.png)
 
 - The **frontend** consists of a single page
+- You do not have to concern yourself with fancy styling. **Focus on
+  functionality!**
 
   - a heading with the title of the site
   - table of existing ships as depicted above, which allows us
     to undock or dock ships (depending on their current state)
     by clicking a link
         - we are redirected back to main page after using the link
+        - if we try to dock ship on a planet that has no more available
+          docking capacity, ship will not be docker and we display
+          "Docking capacity on planet XYZ reached!"
+        - XYZ is a placeholder name of the planet where we tried to dock.
+
+
+![main](assets/maximum_capacity.png)
+
+
   - form that allows us to move ship to a different planet using
     select field
     - only ships that are currently undocked should be displayed
       as option in select field
   - form that allows us to create new ship
+
 
 ## Database
 
@@ -69,8 +84,10 @@ Only requirements are:
 
 ## Endpoints
 
-**You might need more endpoints to implement all the functionality.** Following
+* **You might need more endpoints to implement all the functionality.** Following
 endpoints are the mandatory ones.
+* Your endpoints shouldn't be returning 500 status codes that would be a
+result of **unvalidated user inputs**.
 
 ### GET `/`
 
@@ -80,6 +97,8 @@ endpoints are the mandatory ones.
 ### POST `/ships/{id}/move/`
 
 - this endpoint should be responsible for moving the ship around
+
+- ship cannot move unless undocked
 
 - you should check if the `id` of ship provided in path is valid
 - you should also check whether given ship is undocked
@@ -94,6 +113,19 @@ endpoints are the mandatory ones.
 ### POST `/ships`
 
 - this endpoint is responsible for creation of new ship
+
+- newly created ship is undocked by default
+
+### DELETE `/planets/{id}`
+
+- this endpoints sends a Death Star to planet with given ID,
+destroying the planet (and making millions of voices suddenly
+cry out in terror).
+
+- any ships currently located on destroyed planet flee (both docked
+and undocked), heading to any other planet that remains
+
+- planet is removed 
 
 ### GET `/ships?warpAtLeast=9.5`
 
@@ -130,3 +162,10 @@ you were implementing your Space Transporter application.
 * Write a SQL query that will select names of all ships located on planet "Titan" (use name
 of the planet in the query, not its primary ID)
 * Write a SQL query that will decrease warp speed of all ships by 2.
+* Bonus: Write SQL query that will display amounts of ship located at each of planet, for example:
+
+| name   | ship_count |
+|--------|------------|
+| Titan  | 2          |
+| Earth  | 4          |
+| Vulcan | 1          |
