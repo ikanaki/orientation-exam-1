@@ -122,10 +122,12 @@ result of **unvalidated user inputs**.
 destroying the planet (and making millions of voices suddenly
 cry out in terror).
 
-- any ships currently located on destroyed planet flee (both docked
-and undocked), heading to any other planet that remains
+- Any ships currently located on destroyed planet flee (both docked
+and undocked ships), meaning they move to some other planet that remains.
+  - It's up to you to decide which planet ships move to (can be random,
+    can be first planet...)
 
-- planet is removed 
+- planet is removed from database
 
 ### GET `/ships?warpAtLeast=9.5`
 
