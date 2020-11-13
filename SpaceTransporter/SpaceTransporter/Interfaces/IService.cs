@@ -13,7 +13,7 @@ namespace SpaceTransporter.Interfaces
         public List<Ship> ReadAllShips();
         public Ship ReadShip(string shipName);
         public Ship ReadShip(int shipId);
-        public void UpdateShip(int shipIdToBeUpdated, Ship updateValue);
+        public void UpdateShip(Ship updateValue);
         public void DeleteShip(Ship ship);
 
         // Create Planet is not allowed according to the assignment

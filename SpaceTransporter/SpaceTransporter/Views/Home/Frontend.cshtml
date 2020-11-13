@@ -32,10 +32,10 @@
                     <td>
                         @if (ship.IsDocked)
                         {
-                            <a href="~/ships/{@ship.Id}/undock">Undock</a>
+                            <a href="~/ships/@ship.Id/undock">Undock</a>
                         } else
                         {
-                            <a href="~/ships/{@ship.Id}/dock">Dock</a>
+                            <a href="~/ships/@ship.Id/dock">Dock</a>
                         }
                     </td>
                 </tr>

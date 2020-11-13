@@ -49,12 +49,12 @@ namespace SpaceTransporter.Models
 
         public Ship ReadShip(string shipName)
         {
-            throw new NotImplementedException();
+            return Database.ShipsTable.Where(s=>s.Name == shipName).Include(s=>s.CurrentLocation).FirstOrDefault();
         }
 
         public Ship ReadShip(int shipId)
         {
-            throw new NotImplementedException();
+            return Database.ShipsTable.Where(s=>s.Id == shipId).Include(s=>s.CurrentLocation).FirstOrDefault();
         }
 
         public void UpdatePlanet(int planetIdToBeUpdated, Planet updateVlaue)
@@ -62,9 +62,10 @@ namespace SpaceTransporter.Models
             throw new NotImplementedException();
         }
 
-        public void UpdateShip(int shipIdToBeUpdated, Ship updateValue)
+        public void UpdateShip(Ship updateValue)
         {
-            throw new NotImplementedException();
+            Database.ShipsTable.Update(updateValue);
+            Database.SaveChanges();
         }
         public void DeletePlanet(Planet planet)
         {

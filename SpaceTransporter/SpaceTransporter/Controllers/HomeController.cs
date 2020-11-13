@@ -53,7 +53,40 @@ namespace SpaceTransporter.Controllers
 
             Service.CreateNewShip(ship);
 
-            return View();
+            return RedirectToAction("FrontendGet");
+        }
+
+        [HttpGet("/ships/{shipId}/dock")]
+        public IActionResult DockTheShip([FromRoute] int? shipId)
+        {
+            if (!shipId.HasValue)
+            {
+                string error = "The ship id for the dock is invalid. Try it again!";
+                var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), error);
+                return View("Frontend", modelView);
+            }
+            var ship = Service.ReadShip(shipId.GetValueOrDefault());
+            ship.IsDocked = true;
+            Service.UpdateShip(ship);
+
+            return RedirectToAction("FrontendGet");
+        }
+
+        // Yes, I know DRY principle but there is not time to refactor / optimize
+        [HttpGet("/ships/{shipId}/undock")]
+        public IActionResult UndockTheShip([FromRoute] int? shipId)
+        {
+            if (!shipId.HasValue)
+            {
+                string error = "The ship id for the dock is invalid. Try it again!";
+                var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), error);
+                return View("Frontend", modelView);
+            }
+            var ship = Service.ReadShip(shipId.GetValueOrDefault());
+            ship.IsDocked = false;
+            Service.UpdateShip(ship);
+
+            return RedirectToAction("FrontendGet");
         }
     }
 }
