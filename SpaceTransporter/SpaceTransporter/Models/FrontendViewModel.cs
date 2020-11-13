@@ -10,11 +10,12 @@ namespace SpaceTransporter.Models
     {
         public List<Ship> ShipsToShow { get; set; }
         public List<Planet> PlanetsToShow{ get; set; }
-        public FrontendViewModel(List<Ship> shipsToShow, List<Planet> planetsToShow)
+        public string ErrorMessage { get; set; }
+        public FrontendViewModel(List<Ship> shipsToShow, List<Planet> planetsToShow, string errorMessage="")
         {
             ShipsToShow = shipsToShow;
             PlanetsToShow = planetsToShow;
+            ErrorMessage = errorMessage;
         }
-
     }
 }

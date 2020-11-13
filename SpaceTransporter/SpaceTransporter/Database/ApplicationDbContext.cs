@@ -20,7 +20,7 @@ namespace SpaceTransporter.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Planet>()
-                .HasMany<Ship>(planet => planet.DockedShip)
+                .HasMany<Ship>(planet => planet.DockedShips)
                 .WithOne(ship => ship.CurrentLocation)
                 .HasForeignKey(Ship => Ship.PlanetId);
         }

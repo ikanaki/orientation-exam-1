@@ -12,7 +12,7 @@ namespace SpaceTransporter.Entities
         public int Id { get; set; }
         public double MaxWarpSpeed { get; set; }
         public bool IsDocked { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         public int PlanetId { get; set; }
         public Planet CurrentLocation { get; set; }

@@ -13,11 +13,11 @@ namespace SpaceTransporter.Entities
         public int DockingCapacityLimit { get; set; }
         public string Name { get; set; }
 
-        public List<Ship> DockedShip { set; get; }
+        public List<Ship> DockedShips { set; get; }
 
         public Planet()
         {
-            DockedShip = new List<Ship>();
+            DockedShips = new List<Ship>();
         }
     }
 }

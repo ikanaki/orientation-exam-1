@@ -21,14 +21,15 @@ namespace SpaceTransporter.Models
 
         public void CreateNewShip(Ship ship)
         {
-            Database.ShipsTable.Add(ship);
+            var planet = ReadPlanet(ship.PlanetId);
+            planet.DockedShips.Add(ship);
             Database.SaveChanges();
         }
 
 
         public List<Planet> ReadAllPlanets()
         {
-            return Database.PlanetsTable.Include(planet=>planet.DockedShip).ToList();
+            return Database.PlanetsTable.Include(planet=>planet.DockedShips).ToList();
         }
 
         public List<Ship> ReadAllShips()
@@ -38,12 +39,12 @@ namespace SpaceTransporter.Models
 
         public Planet ReadPlanet(string planetName)
         {
-            throw new NotImplementedException();
+            return Database.PlanetsTable.Where(p=>p.Name==planetName).Include(p=>p.DockedShips).FirstOrDefault() ;
         }
 
         public Planet ReadPlanet(int planetId)
         {
-            throw new NotImplementedException();
+            return Database.PlanetsTable.Where(p => p.Id == planetId).Include(p=>p.DockedShips).FirstOrDefault() ;
         }
 
         public Ship ReadShip(string shipName)
