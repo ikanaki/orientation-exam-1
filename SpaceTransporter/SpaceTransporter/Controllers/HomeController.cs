@@ -88,5 +88,49 @@ namespace SpaceTransporter.Controllers
 
             return RedirectToAction("FrontendGet");
         }
+
+        [HttpPost("/ships/move/")]
+        public IActionResult MoveShipPost(ShipMoveInput shipMovement)
+        {
+            if (shipMovement == null)
+            {
+                string error = "The ship movement form has not been correctly fulfilled. Try it again!";
+                var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), error);
+                return View("Frontend", modelView);
+            }
+            if (
+                !shipMovement.SendPlanetId.HasValue
+                || !shipMovement.SendShipId.HasValue
+                )
+            {
+                string error = "The invalid value of Planet or Ship. Try it again!";
+                var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), error);
+                return View("Frontend", modelView);
+            }
+            if (!Service.IsShipInDb(shipMovement.SendShipId.GetValueOrDefault())
+            {
+                string error = "The ship is not in the Database. Try it again!";
+                var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), error);
+                return View("Frontend", modelView);
+            }
+            
+            var ship = Service.ReadShip(shipMovement.SendShipId.GetValueOrDefault());
+            var sourcePlanet = Service.ReadPlanet(ship.CurrentLocation.Id);
+            var destinationPlanet = Service.ReadPlanet(shipMovement.SendPlanetId.GetValueOrDefault());
+            if (ship.IsDocked)
+            {
+                string error = $"The ship {ship.Name}, requested to send, is docked! Undock and try it again!";
+                var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), error);
+                return View("Frontend", modelView);
+            }
+            // Now move the ship
+            ship.CurrentLocation = destinationPlanet;
+            Service.UpdateShip(ship);
+
+            return RedirectToAction("FrontendGet");
+        }
+
+        //[HttpGet("/ships")]
+        //public 
     }
 }

@@ -16,11 +16,13 @@ namespace SpaceTransporter.Interfaces
         public void UpdateShip(Ship updateValue);
         public void DeleteShip(Ship ship);
 
+        public bool IsShipInDb(int shipID);
+
         // Create Planet is not allowed according to the assignment
         public List<Planet> ReadAllPlanets();
         public Planet ReadPlanet(string planetName);
         public Planet ReadPlanet(int planetId);
-        public void UpdatePlanet(int planetIdToBeUpdated, Planet updateVlaue);
+        public void UpdatePlanet(Planet updateValue);
         public void DeletePlanet(Planet planet);
     }
 }

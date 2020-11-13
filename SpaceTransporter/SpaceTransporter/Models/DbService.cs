@@ -57,9 +57,10 @@ namespace SpaceTransporter.Models
             return Database.ShipsTable.Where(s=>s.Id == shipId).Include(s=>s.CurrentLocation).FirstOrDefault();
         }
 
-        public void UpdatePlanet(int planetIdToBeUpdated, Planet updateVlaue)
+        public void UpdatePlanet(Planet updateValue)
         {
-            throw new NotImplementedException();
+            Database.PlanetsTable.Update(updateValue);
+            Database.SaveChanges();
         }
 
         public void UpdateShip(Ship updateValue)
@@ -75,6 +76,11 @@ namespace SpaceTransporter.Models
         public void DeleteShip(Ship ship)
         {
             throw new NotImplementedException();
+        }
+
+        public bool IsShipInDb(int shipID)
+        {
+            return Database.ShipsTable.Any(s=>s.Id == shipID);
         }
     }
 }
