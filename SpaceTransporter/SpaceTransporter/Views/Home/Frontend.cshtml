@@ -5,10 +5,46 @@
     Layout = "_Layout";
 }
 
+@using SpaceTransporter.Models;
+@model FrontendViewModel;
+
 <div>
     <h3>Ships</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>Ship name</td>
+                <td>Maximum warp speed</td>
+                <td>Current location</td>
+                <td>Docking action</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var ship in Model.ShipsToShow)
+            {
+                <tr>
+                    <td>@ship.Id</td>
+                    <td>@ship.Name</td>
+                    <td>@ship.MaxWarpSpeed</td>
+                    <td>@ship.CurrentLocation.Name</td>
+                    <td>
+                        @if (ship.IsDocked)
+                        {
+                            <a href="~/ships/{@ship.Id}/undock">Undock</a>
+                        } else
+                        {
+                            <a href="~/ships/{@ship.Id}/dock">Dock</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
+<br />
 <div>
     <h3>Send Ship</h3>
 
@@ -16,7 +52,34 @@
     make sure to undock it above</p>
 </div>
 
+<br />
 <div>
     <h3>Create new ship</h3>
+
+    <form action="~/ships" method="post">
+        <label for="Name">Ship name</label>
+        <br />
+        <input type="text" id="Name" name="Name" />
+        
+        <br />
+        <label for="MaxWarpSpeed">Maximum warp</label>
+        <br />
+        <input type="text" id="MaxWarpSpeed" name="MaxWarpSpeed" />
+
+        <br />
+        <label for="PlanetId">Starting planet</label>
+        <br />
+        <select id="PlanetId" name="PlanetId">
+            @foreach(var planet in Model.PlanetsToShow)
+            {
+                <option value=@planet.Id>@planet.Name</option>
+            }
+        </select>
+
+        <br />
+        <label for="Submit"></label>
+        <input type="submit" id="Submit" name="Submit" value="Create the ship!" />
+
+    </form>
 
 </div>

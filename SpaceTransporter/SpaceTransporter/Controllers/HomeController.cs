@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SpaceTransporter.Interfaces;
+using SpaceTransporter.Models;
 
 namespace SpaceTransporter.Controllers
 {
@@ -20,7 +21,8 @@ namespace SpaceTransporter.Controllers
         [HttpGet("")]
         public IActionResult FrontendGet()
         {
-            return View("Frontend");
+            var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets());
+            return View("Frontend",modelView);
         }
     }
 }
