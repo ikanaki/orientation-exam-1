@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SpaceTransporter.Database;
+using SpaceTransporter.Interfaces;
+using SpaceTransporter.Models;
 
 namespace SpaceTransporter
 {
@@ -27,11 +29,14 @@ namespace SpaceTransporter
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<ApplicationDbContext>(
+            services.AddTransient<IService, DbService>();
+
+            services.AddDbContext<ApplicationDbContext>
+                (
                 builder =>
                     builder.UseSqlServer(
-                        Configuration.GetConnectionString("DefaultConnection")
-                        )
+                             Configuration.GetConnectionString("DefaultConnection")
+                                        )
                 );
         }
 
