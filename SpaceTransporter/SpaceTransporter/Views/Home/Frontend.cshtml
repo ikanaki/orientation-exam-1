@@ -50,6 +50,30 @@
 
     <p>Ships can only be sent if they are unocked. If you aren't seeing your ship in the select below, 
     make sure to undock it above</p>
+
+    <form action="~/ships/move/" method="post">
+        <br />
+        <label for="SendShipId">Which ship should be sent...</label>
+        <select id="SendShipId" name="SendShipId">
+            @foreach (var ship in Model.ShipsToShow)
+            {
+                <option value=@ship.Id>@ship.Name</option>
+            }
+        </select>
+        
+        <label for="SendPlanetId">...to which planet</label>
+        <select id="SendPlanetId" name="SendPlanetId">
+            @foreach (var planet in Model.PlanetsToShow)
+            {
+                <option value=@planet.Id>@planet.Name</option>
+            }
+        </select>
+
+        <br />
+        <label for="SubmitShipMove"></label>
+        <input type="submit" id="SubmitShipMove" name="SubmitShipMove" value="Send the Ship!" />
+    </form>
+
 </div>
 
 <br />
