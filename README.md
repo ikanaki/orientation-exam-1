@@ -37,36 +37,33 @@ between planets in our newly founded galactic federation.
       docked at any given time (some docking capacity).
     - If this limit is reached, no more ship can dock until more space
       becomes available (already docked ship undocking).
-    - Assume that planet names are unique.
+    - Assume that planet names are unique (you don't have to add
+      this constraint/check yourself).
 
 ## Frontend
 
 ![main](assets/frontpage.png)
 
-- The **frontend** consists of a single page
 - You do not have to concern yourself with fancy styling. **Focus on
   functionality!**
-
+- The **frontend** consists of a single page
   - a heading with the title of the site
   - table of existing ships as depicted above, which allows us
     to undock or dock ships (depending on their current state)
     by clicking a link
      - we are redirected back to main page after using the link
      - if we try to dock ship on a planet that has no more available
-          docking capacity, ship will not be docker and we display
-          "Docking capacity on planet XYZ reached!"
-     - XYZ is a placeholder name of the planet where we tried to dock.
-
+          docking capacity, ship will not be docked and we display
+          "Docking capacity on planet XYZ reached!" error
+     - XYZ is a placeholder name of the planet where we tried to dock
 
 ![main](assets/maximum_capacity.png)
 
-
-  - form that allows us to move ship to a different planet using
-    select field
+- form that allows us to move ship to a different planet using
+    select fields
     - only ships that are currently undocked should be displayed
       as option in select field
   - form that allows us to create new ship
-
 
 ## Database
 
@@ -103,9 +100,6 @@ result of **unvalidated user inputs**.
 - you should check if the `id` of ship provided in path is valid
 - you should also check whether given ship is undocked
 
-- send information about which planet should ship move to in body of the 
-  request
-
 - save changes
 
 - redirect back to the main page
@@ -120,12 +114,12 @@ result of **unvalidated user inputs**.
 
 - this endpoints sends a Death Star to planet with given ID,
 destroying the planet (and making millions of voices suddenly
-cry out in terror).
+cry out in terror)
 
 - Any ships currently located on destroyed planet flee (both docked
 and undocked ships), meaning they move to some other planet that remains.
   - It's up to you to decide which planet ships move to (can be random,
-    can be first planet...)
+    can be first planet in database...)
 
 - planet is removed from database
 
@@ -164,7 +158,7 @@ you were implementing your Space Transporter application.
 * Write a SQL query that will select names of all ships located on planet "Titan" (use name
 of the planet in the query, not its primary ID)
 * Write a SQL query that will decrease warp speed of all ships by 2.
-* Bonus: Write SQL query that will display amounts of ship located at each of planet, for example:
+* Bonus question: Write SQL query that will display amounts of ships located at each of planet, for example:
 
 | name   | ship_count |
 |--------|------------|
