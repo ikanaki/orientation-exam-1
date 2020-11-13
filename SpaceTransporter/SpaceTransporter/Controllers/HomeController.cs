@@ -107,7 +107,7 @@ namespace SpaceTransporter.Controllers
                 var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), error);
                 return View("Frontend", modelView);
             }
-            if (!Service.IsShipInDb(shipMovement.SendShipId.GetValueOrDefault())
+            if (!Service.IsShipInDb(shipMovement.SendShipId.GetValueOrDefault()))
             {
                 string error = "The ship is not in the Database. Try it again!";
                 var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), error);
@@ -130,7 +130,23 @@ namespace SpaceTransporter.Controllers
             return RedirectToAction("FrontendGet");
         }
 
-        //[HttpGet("/ships")]
-        //public 
+       
+
+        [HttpGet("/ships")]
+        public ActionResult ReturnShips([FromQuery] double? warpAtLeastInput)
+        {
+            if (!warpAtLeastInput.HasValue)
+            {
+                return BadRequest();
+            }
+            var warpAtLeast = warpAtLeastInput.GetValueOrDefault();
+            var AllShipsConstrained =
+                Service.ReadAllShips().Where(s => s.MaxWarpSpeed > warpAtLeast).ToArray();
+
+            // TODO Sort
+
+            return Ok(AllShipsConstrained);
+
+        }
     }
 }
