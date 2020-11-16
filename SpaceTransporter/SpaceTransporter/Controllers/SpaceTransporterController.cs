@@ -130,22 +130,32 @@ namespace SpaceTransporter.Controllers
             return RedirectToAction("FrontendGet");
         }
 
+        [HttpDelete("/planets/{id}")]
+        public IActionResult DeletePlanet([FromRoute] int? id)
+        {
+            return RedirectToAction("FrontentGet");
+        }
+
        
 
         [HttpGet("/ships")]
-        public ActionResult ReturnShips([FromQuery] double? warpAtLeastInput)
+        public ActionResult ReturnShips([FromQuery] double? warpAtLeast)
         {
-            if (!warpAtLeastInput.HasValue)
+            if (!warpAtLeast.HasValue)
             {
                 return BadRequest();
             }
-            var warpAtLeast = warpAtLeastInput.GetValueOrDefault();
+            var warpLimit = warpAtLeast.GetValueOrDefault();
             var AllShipsConstrained =
-                Service.ReadAllShips().Where(s => s.MaxWarpSpeed > warpAtLeast).ToArray();
+                Service.ReadAllShips()
+                .Where(s => s.MaxWarpSpeed > warpLimit)
+                .OrderByDescending(ship=>ship.MaxWarpSpeed).ToArray();
 
             // TODO Sort
 
-            return Ok(AllShipsConstrained);
+            var AllShipsConstrainedDTO = Array.ConvertAll(AllShipsConstrained, item => new ShipDTO(item));
+
+            return Ok(AllShipsConstrainedDTO);
 
         }
     }
