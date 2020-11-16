@@ -19,11 +19,19 @@ namespace SpaceTransporter.Models
             Database = database;
         }
 
-        public void CreateNewShip(Ship ship)
+        public bool CreateNewShip(Ship ship)
         {
             var planet = ReadPlanet(ship.PlanetId);
-            planet.DockedShips.Add(ship);
-            Database.SaveChanges();
+            if (planet.GetRemainingDockingCapacity() > 0)
+            {
+                planet.DockedShips.Add(ship);
+                Database.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 

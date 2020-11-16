@@ -9,7 +9,7 @@ namespace SpaceTransporter.Interfaces
     public interface IService
     {
 
-        public void CreateNewShip(Ship ship);
+        public bool CreateNewShip(Ship ship);
         public List<Ship> ReadAllShips();
         public Ship ReadShip(string shipName);
         public Ship ReadShip(int shipId);

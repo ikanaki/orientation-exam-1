@@ -51,9 +51,15 @@ namespace SpaceTransporter.Controllers
             ship.MaxWarpSpeed = Convert.ToDouble(shipInput.Warp);
             ship.PlanetId = shipInput.PlanetId.GetValueOrDefault();
 
-            Service.CreateNewShip(ship);
-
-            return RedirectToAction("FrontendGet");
+            if (Service.CreateNewShip(ship))
+            {
+                return RedirectToAction("FrontendGet");
+            }
+            else
+            {
+                var modelView = new FrontendViewModel(Service.ReadAllShips(), Service.ReadAllPlanets(), "", Service.ReadPlanet(ship.PlanetId));
+                return View("Frontend", modelView);
+            }
         }
 
         [HttpGet("/ships/{shipId}/dock")]

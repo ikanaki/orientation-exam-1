@@ -80,6 +80,10 @@
 <div>
     <h3>Create new ship</h3>
 
+    @if (Model.DockingCapacityReached != null)
+    {
+        <p>The docking capacity on the planet @Model.DockingCapacityReached.Name reached!</p>
+    }
     <form action="~/ships" method="post">
         <label for="Name">Ship name</label>
         <br />
@@ -103,7 +107,6 @@
         <br />
         <label for="Submit"></label>
         <input type="submit" id="Submit" name="Submit" value="Create the ship!" />
-
     </form>
 
 

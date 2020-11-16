@@ -11,11 +11,13 @@ namespace SpaceTransporter.Models
         public List<Ship> ShipsToShow { get; set; }
         public List<Planet> PlanetsToShow{ get; set; }
         public string ErrorMessage { get; set; }
-        public FrontendViewModel(List<Ship> shipsToShow, List<Planet> planetsToShow, string errorMessage="")
+        public Planet DockingCapacityReached { get; set; }
+        public FrontendViewModel(List<Ship> shipsToShow, List<Planet> planetsToShow, string errorMessage="", Planet dockingCapacityReached = null)
         {
             ShipsToShow = shipsToShow;
             PlanetsToShow = planetsToShow;
             ErrorMessage = errorMessage;
+            DockingCapacityReached = dockingCapacityReached;
         }
     }
 }
