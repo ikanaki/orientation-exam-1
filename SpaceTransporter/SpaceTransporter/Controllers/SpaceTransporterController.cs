@@ -10,10 +10,10 @@ using SpaceTransporter.Models;
 namespace SpaceTransporter.Controllers
 {
     [Route("")]
-    public class HomeController : Controller
+    public class SpaceTransporterController : Controller
     {
         public IService Service { set; get; }
-        public HomeController(IService service)
+        public SpaceTransporterController(IService service)
         {
             Service = service;
         }
