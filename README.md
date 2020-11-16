@@ -158,8 +158,9 @@ you were implementing your Space Transporter application.
 * Write a SQL query that will select names of all ships located on planet "Titan" (use name
 of the planet in the query, not its primary ID)
 
-SELECT Name FROM dbo.ShipsTable
-WHERE CurrentLocation.Name='Titan';
+SELECT ShipsTable.Name 
+FROM dbo.ShipsTable INNER JOIN dbo.PlanetsTable ON PlanetId=PlanetsTable.Id 
+WHERE PlanetsTable.Name='Titan';
 
 * Write a SQL query that will decrease warp speed of all ships by 2.
 
@@ -174,4 +175,10 @@ SET MaxWarpSpeed = MaxWarpSpeed - 2;
 | Titan  | 2          |
 | Earth  | 4          |
 | Vulcan | 1          |
+
+
+SELECT dbo.PlanetsTable.Name, COUNT(dbo.ShipsTable.Name) 
+FROM dbo.ShipsTable INNER JOIN dbo.PlanetsTable ON PlanetId=PlanetsTable.Id 
+GROUP BY dbo.PlanetsTable.Name;
+
 
