@@ -24,5 +24,6 @@ namespace SpaceTransporter.Interfaces
         public Planet ReadPlanet(int planetId);
         public void UpdatePlanet(Planet updateValue);
         public void DeletePlanet(Planet planet);
+        public bool IsPlanetInDB(int planetID);
     }
 }

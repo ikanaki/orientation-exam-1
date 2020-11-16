@@ -70,7 +70,8 @@ namespace SpaceTransporter.Models
         }
         public void DeletePlanet(Planet planet)
         {
-            throw new NotImplementedException();
+            Database.PlanetsTable.Remove(planet);
+            Database.SaveChanges();
         }
 
         public void DeleteShip(Ship ship)
@@ -81,6 +82,11 @@ namespace SpaceTransporter.Models
         public bool IsShipInDb(int shipID)
         {
             return Database.ShipsTable.Any(s=>s.Id == shipID);
+        }
+
+        public bool IsPlanetInDB(int planetID)
+        {
+            return Database.PlanetsTable.Any(s=>s.Id == planetID);
         }
     }
 }

@@ -131,11 +131,36 @@ namespace SpaceTransporter.Controllers
         }
 
         [HttpDelete("/planets/{id}")]
-        public IActionResult DeletePlanet([FromRoute] int? id)
+        public ActionResult DeletePlanet([FromRoute] int? id)
         {
-            return RedirectToAction("FrontentGet");
-        }
+            if (!(id.HasValue))
+            {
+                return BadRequest();
+            }
+            var idNotNullValue = id.GetValueOrDefault();
+            if (!(Service.IsPlanetInDB(idNotNullValue)))
+            {
+                return BadRequest($"There is on planet of id = {idNotNullValue}");
+            }
+            var planetToDelete = Service.ReadPlanet(idNotNullValue);
+            List<Ship> remainigShips = planetToDelete.DockedShips;
+            //planetToDelete.DockedShips = new List<Ship>();
 
+            foreach (var planet in Service.ReadAllPlanets())
+            {
+                while ( (planet.GetRemainingDockingCapacity()>0) && remainigShips.Count()>0)
+                {
+                    var ship = remainigShips[0];
+                    planetToDelete.DockedShips.Remove(ship);
+                    planet.DockedShips.Add(ship);
+                    Service.UpdatePlanet(planet);
+                    remainigShips.Remove(ship);
+                }
+            }
+            Service.DeletePlanet(planetToDelete);
+
+            return Ok();
+        }
        
 
         [HttpGet("/ships")]
@@ -156,7 +181,6 @@ namespace SpaceTransporter.Controllers
             var AllShipsConstrainedDTO = Array.ConvertAll(AllShipsConstrained, item => new ShipDTO(item));
 
             return Ok(AllShipsConstrainedDTO);
-
         }
     }
 }

@@ -19,5 +19,10 @@ namespace SpaceTransporter.Entities
         {
             DockedShips = new List<Ship>();
         }
+
+        public int GetRemainingDockingCapacity()
+        {
+            return DockingCapacityLimit - DockedShips.Count();
+        }
     }
 }
