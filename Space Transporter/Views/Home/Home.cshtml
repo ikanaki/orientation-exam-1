@@ -1,0 +1,76 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Space_Transporter.ViewModels.HomeViewModel
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Space Transporter</title>
+</head>
+<body>
+    <h1>Spaceship Transport manager</h1>
+    <p style="color:red">@Model.ErrorMessage</p>
+    <table>
+        <caption style="text-align:left; font-size:24px; font-weight:bold">Ships</caption>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Ship name</th>
+                <th>Maximum warp speed</th>
+                <th>Current location</th>
+                <th>Docking action</th>
+            </tr>
+        </thead>
+        @foreach (var ship in Model.AllShips)
+        {
+            <tbody>
+                <tr>
+                    <td>@ship.Id</td>
+                    <td>@ship.Name</td>
+                    <td>@ship.MaxWarpSpeed</td>
+                    <td>@ship.CurrentPlanet.Name</td>
+                    @if (ship.IsDocked)
+                    {
+                        <td><a asp-controller="Home" asp-action="Docking" asp-route-id="@ship.Id">Undock</a></td>
+                    }
+                    else
+                    {
+                        <td><a asp-controller="Home" asp-action="Docking" asp-route-id="@ship.Id">Dock</a></td>
+                    }
+                </tr>
+            </tbody>
+        }
+    </table>
+    <br />
+    <h2>Send ship</h2>
+    <p>Ships can only be sent if they are undocked. If you aren´t seeing your ship in the select below, make sure to undock it above.</p>
+    <form asp-controller="Home" asp-action="SendTheShip" method="post">
+        <label for="ship-select">Which ship should be sent...</label>
+        <select asp-items="@Model.AvailableShips" name="shipId" id="ship-select">
+        </select>
+        <label for="planet-select">...to which planet</label>
+        <select asp-items="@Model.AvailablePlanets" name="planetId" id="planet-select">
+        </select>
+        <button type="submit">Send the ship!</button>
+    </form>
+    <br />
+    <h2>Create new ship</h2>
+    <form asp-controller="Home" asp-action="AddNewShip" method="post">
+        <label for="ship-name-input">Ship name</label>
+        <br />
+        <input type="text" name="name" id="ship-name-input" value="" />
+        <br />
+        <label for="maximum-warp-input">Maximum warp</label>
+        <br />
+        <input type="text" name="maxWarpSpeed" id="maximum-warp-input" value="" />
+        <br />
+        <label for="planet-select">Starting planet</label>
+        <select asp-for="Planet.Id" name="planetId" id="planet-select">
+            @foreach (var planet in Model.AllPlanets)
+            {
+                <option value="@planet.Id">@planet.Name</option>
+            }
+        </select>
+        <br />
+        <button>Create the ship!</button>
+    </form>
+</body>
+</html>
